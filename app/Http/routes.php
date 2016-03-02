@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('test', "ContractGetter@getList");
+Route::get('contratos', "Contracts@index");
+Route::get('contrato/{ocid}', "Contracts@show");
 
 
 /*
