@@ -21,15 +21,19 @@ class Contracts extends Controller
     $url  = 'http://187.141.34.209:9009/ocpcdmx/contratos';
     $data = ['dependencia' => '901', 'contrato' => $ocid];
 
+    // [2.1] the CURL stuff
     $ch   = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,5);
     $result = curl_exec($ch);
     $con    = json_decode($result);
 
     // [3] if the ocid is invalid, redirect
+    var_dump($result);
+    die();
     if(empty($result)) return redirect("contratos");
 
     // [4] show the view
