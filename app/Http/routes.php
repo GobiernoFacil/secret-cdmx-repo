@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Frontend
+Route::get('/', "Frontend@index");
+
 
 Route::get('test', "ContractGetter@getList");
 Route::get('contratos', "Contracts@index");
