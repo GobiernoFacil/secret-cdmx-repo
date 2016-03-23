@@ -8,5 +8,5 @@ Homestead.json
 public/js/bower_components
 public/s1/js/bower_components
 public/css/src_sass
-css/fonts
+public/css/fonts
 config/database.php
