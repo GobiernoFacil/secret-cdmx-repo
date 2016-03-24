@@ -18,7 +18,7 @@ class Contracts extends Controller
 		$data                = [];
 		$data['title']       = 'Lista de Contrataciones Abiertas de la CDMX';
 		$data['description'] = 'Lista de contratos abiertos de la Ciudad de México';
-		$og_image			 = "img/og/contrato-cdmx.png";
+		$data['og_image']	 = "img/og/contrato-cdmx.png";
 		$data['body_class']  = 'contract';
 		
 		//// lista de contratos aún sin implementar en el view
@@ -26,7 +26,11 @@ class Contracts extends Controller
 		
 		return view("frontend.contracts_list")->with($data);
 	}
-
+	
+	
+	//
+	// Show Contract
+	//
   public function show($ocid){
     // [1] Validate ocid & redirect if not valid
     $r = preg_match('/^[\w-]+$/', $ocid);
@@ -48,7 +52,14 @@ class Contracts extends Controller
     if(empty($result)) return redirect("contratos");
 
     // [4] show the view
-    return view("contract")->with(['con' => $con]);
+    	$data                = [];
+		$data['title']       = $con->releases[0]->tender->title . " | Contrataciones Abiertas de la CDMX";
+		$data['description'] = "Contrato: " . $con->releases[0]->tender->description;
+		$data['og_image']	 = "img/og/contrato-cdmx.png";
+		$data['body_class']  = 'contract';
+		$data['elcontrato']	 = $con;
+    
+    return view("frontend.contract")->with($data);
 
   }
 }
