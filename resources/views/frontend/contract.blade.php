@@ -1,81 +1,10 @@
-<?php
-  $elcontrato  = $con;
-  $body_class  = "contract";
-  $title       = "Contrato";
-  $description = "Contrato";
-  $og_image    = "img/og/contrato-cdmx.png";
-  $url         = "http://" .  $_SERVER['HTTP_HOST'] ."/";
-  $canonical   = $url;
-?>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="es-MX"> <!--<![endif]-->
+@extends('frontend.layouts.master')
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo !$title ? "" :  $title ;?></title>
-  <meta name="description" content="<?php echo !$description ? "" :  $description ;?>">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="canonical" href="{{url('')}}">   
-  <!-- FB-->
-  <meta property="og:title" content="<?php echo !$title ? "" :  $title ;?>"/>
-  <meta property="og:site_name" content="Contrataciones Abiertas de la CDMX"/>
-  <meta property="og:description" content="<?php echo !$description ? "" :  $description ;?>"/>
-  <meta property="og:image" content="<?php echo $url;?>img/<?php echo !$og_image ? "cdmx_og.png" : $og_image ;?>"/>
-  <meta property="fb:app_id" content=""/>
-  <link rel="shortcut icon" href="{{url('img/icon/CDMX_16.png')}}" sizes="16x16">
-  <link rel="shortcut icon" href="{{url('img/icon/CDMX_32.png')}}" sizes="32x32">
-  <link rel="shortcut icon" href="{{url('img/icon/CDMX_64.png')}}" sizes="64x64">
-  <link rel="stylesheet" href="{{url('css/normalize.css')}}">
-  <link rel="stylesheet" href="{{url('css/styles.css')}}">
-<!--
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
-.oPYo.        8       o                              ooooo     .o         o 8 
-8    8        8                                      8                      8 
-8      .oPYo. 8oPYo. o8 .oPYo. oPYo. odYo. .oPYo.   o8oo   .oPYo. .oPYo. o8 8 
-8   oo 8    8 8    8  8 8oooo8 8  `' 8' `8 8    8    8     .oooo8 8    '  8 8 
-8    8 8    8 8    8  8 8.     8     8   8 8    8    8     8    8 8    .  8 8 
-`YooP8 `YooP' `YooP'  8 `Yooo' 8     8   8 `YooP'    8     `YooP8 `YooP'  8 8 
-:....8 :.....::.....::..:.....:..::::..::..:.....::::..:::::.....::.....::....
-:::::8 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::::..:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
--->
-</head>
-
-<body <?php echo !$body_class ? "" : 'class="' . $body_class .'"';?>>
-  <!--menu-->
-  <nav id="menu">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-3 col-sm-3">
-        <h2><a href="http://www.df.gob.mx/"  class="cdmx">CDMX | SEFIN</a></h2>
-        </div>
-        <div class="col-xs-6 col-sm-6">
-          <h1><a href="index.php">CONTRATACIONES <strong>ABIERTAS</strong></a></h1>
-        </div>
-        
-      </div>
-    </div>
-  </nav>
-
-
-
-
-
-
-
-
-
-
-
+@section('content')
 
 <div class="breadcrumb">
   <div class="container">
-    <a href="/home-v2.php"><strong>&lt;</strong> Lista de Licitaciones</a>
+    <a href="/v2"><strong>&lt;</strong> Lista de Licitaciones</a>
   </div>
 </div>
 <article>
@@ -440,7 +369,7 @@
       <div class="clearfix"></div>
 </article>
 
-<script type="text/javascript" src="js/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bower_components/jquery/dist/jquery.min.js"></script>
 <script>
 $( document ).ready(function() {
   
@@ -630,70 +559,4 @@ $( document ).ready(function() {
     
 });
 </script>
-
-
-
-
-
-
-
-  <!--footer-->
-  <footer>
-    <div class="partners">
-      <div class="container">
-        <div class="row">
-          <h4>Con el apoyo de</h4>
-          <div class="col-sm-4">
-            <a href="http://www.bloombergassociates.org/" class="bloomberg">Bloomberg Associates</a>
-          </div>
-          <div class="col-sm-4">
-            <a href="http://www.open-contracting.org/" class="ocds">Open Contracting Data Standard</a>
-          </div>
-          <div class="col-sm-4">
-            <a href="http://imco.org.mx/" class="imco">IMCO</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-9">
-          <h2><a href="http://www.df.gob.mx/" class="cdmx_w">CDMX</a></h2>
-          <h3>CONTRATACIONES <strong>ABIERTAS</strong></h3>
-        </div>
-        <div class="col-sm-3 author">
-          <p>Forjado Artesanalmente por 
-            <a href="http://gobiernofacil.com/" class="gobiernofacil">Gobierno Fácil</a></p>
-        </div>
-      </div>
-    </div>
-    <div class="copy">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-3">
-            <p>® 2015 Gobierno del Distrito Federal</p>
-          </div>
-          <div class="col-sm-4">
-            <p class="center">¿Dudas?  compras@df.gob.mx</p>
-          </div>
-          <div class="col-sm-5">
-            <p class="right">Plaza de la Constitución S/N Primer Piso, Centro, Cuauhtémoc, C.P. 06010</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  
-  
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-45473222-11', 'auto');
-  ga('send', 'pageview');
-
-  </script>
-  </body>
-</html>
+@endsection
