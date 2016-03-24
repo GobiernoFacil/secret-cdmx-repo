@@ -107,7 +107,7 @@
 				<li class="row tender planning <?php echo empty($awards) ? '' : 'award'; ?> <?php echo empty($contracts) ? '' : 'contract'; ?>">
 					<div class="col-sm-9 top">
 						<?php if ($value->releases[0]->tender):?>
-						<h2><a href="contrato-v2.php?ocid=<?php echo $key; ?>"><?php echo $title_contract; ?> <span><?php echo $value->releases[0]->tender->id;?> </span></a></h2>
+						<h2><a href="{{ url('contrato/' . $key) }}"><?php echo $title_contract; ?> <span><?php echo $value->releases[0]->tender->id;?> </span></a></h2>
 						<?php else:?>
 						<h2><a href="contrato-v2.php?ocid=<?php echo $key; ?>"><?php echo $title; ?> </a></h2>
 						<?php endif;?>

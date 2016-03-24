@@ -66,7 +66,7 @@ define(function(require){
         controller : this,
         data       : DATA,
         el         : "#treemap",
-        _url       : "/contrato-v2.php?ocid=",
+        _url       : "/contrato/",
         _selector  : "budget"
       });
     },
