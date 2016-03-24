@@ -14,9 +14,10 @@
 // Frontend
 Route::get('/', "Frontend@index");
 
+Route::get('v2', "Contracts@index");
 
 Route::get('test', "ContractGetter@getList");
-Route::get('contratos', "Contracts@index");
+// se esconde mientras va en vivo Route::get('contratos', "Contracts@index"); 
 Route::get('contrato/{ocid}', "Contracts@show");
 
 
