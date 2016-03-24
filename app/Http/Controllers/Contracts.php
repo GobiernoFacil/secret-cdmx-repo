@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\Contract;
 
 class Contracts extends Controller
 {
-  public function index(){
-    echo ":D";
-  }
+	
+	//
+	// Contracts list
+	//	
+	public function index(){
+		$contracts 			 = Contract::all();
+		$data                = [];
+		$data['title']       = 'Lista de Contrataciones Abiertas de la CDMX';
+		$data['description'] = 'Lista de contratos abiertos de la Ciudad de México';
+		$og_image			 = "img/og/contrato-cdmx.png";
+		$data['body_class']  = 'contract';
+		
+		//// lista de contratos aún sin implementar en el view
+		$data['contracts']  = $contracts;
+		
+		return view("frontend.contracts_list")->with($data);
+	}
 
   public function show($ocid){
     // [1] Validate ocid & redirect if not valid
