@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Contract extends Model
 {
     //
-  protected $fillable = ['ocdsid', 'ejercicio', 'cvedependencia', 'nomDependencia'];
+  protected $fillable = ['ocdsid', 'ejercicio', 'cvedependencia', 'nomdependencia'];
 }

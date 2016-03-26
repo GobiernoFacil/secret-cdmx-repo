@@ -111,7 +111,7 @@ class ContractGetter extends Controller
   }
 
   public function saveProviders($from = 1){
-    $from = 37822;
+    $from = 34270;
     $step = 100;
     $max_steps = 100;
     $walk = true;

@@ -26,6 +26,7 @@ Route::get('contratos', "Contracts@index");
 
 // se esconde mientras va en vivo Route::get('contratos', "Contracts@index"); 
 Route::get('contrato/{ocid}', "Contracts@show");
+Route::get('contrato/json/{ocid}', "Contracts@showRaw");
 
 /*
 .......................................
