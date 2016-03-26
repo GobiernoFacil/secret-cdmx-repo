@@ -11,16 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Frontend
+Route::get('/', "Frontend@index");
+
+Route::get('v2', "Contracts@index");
 
 Route::get('test', "ContractGetter@getList");
+
 Route::get('test2/{ocid}', "ContractGetter@getMetaData");
 Route::get('test3/{from}/{to}', "ContractGetter@getProviders");
 Route::get('test4/{from?}', "ContractGetter@saveProviders");
 Route::get('test5', "ContractGetter@updateContracts");
 Route::get('contratos', "Contracts@index");
+
+// se esconde mientras va en vivo Route::get('contratos', "Contracts@index"); 
 Route::get('contrato/{ocid}', "Contracts@show");
 
 /*

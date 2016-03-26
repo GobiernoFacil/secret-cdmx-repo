@@ -7,3 +7,6 @@ Homestead.json
 .DS_Store
 public/js/bower_components
 public/s1/js/bower_components
+public/css/src_sass
+public/css/fonts
+config/database.php
