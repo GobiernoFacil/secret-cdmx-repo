@@ -17,8 +17,18 @@ Route::get('/', function () {
 
 Route::get('test', "ContractGetter@getList");
 Route::get('test2/{ocid}', "ContractGetter@getMetaData");
+Route::get('test3/{from}/{to}', "ContractGetter@getProviders");
+Route::get('test4/{from?}', "ContractGetter@saveProviders");
+Route::get('test5', "ContractGetter@updateContracts");
 Route::get('contratos', "Contracts@index");
 Route::get('contrato/{ocid}', "Contracts@show");
+
+/*
+.......................................
+. T H E   A P I   M I D D L E W A R E .
+.......................................
+*/
+Route::get('api/contratos/todos', 'ApiCDMX@listAll');
 
 
 /*
@@ -33,5 +43,5 @@ Route::get('contrato/{ocid}', "Contracts@show");
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
 });

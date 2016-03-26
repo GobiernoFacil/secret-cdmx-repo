@@ -8,11 +8,15 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Contract;
+use App\Models\Provider;
 
 class ContractGetter extends Controller
 {
-  public $apiContratos = 'http://187.141.34.209:9009/ocpcdmx/listarcontratos';
-  public $dependencia  = 901;
+  public $apiContratos   = 'http://187.141.34.209:9009/ocpcdmx/listarcontratos';
+  public $apiContrato    = 'http://187.141.34.209:9009/ocpcdmx/contratos';
+  public $apiProveedores = 'http://10.1.65.84:9000/ocpcdmx/cproveedores';
+  public $apiProveedores2 = 'http://187.141.34.209:9009/ocpcdmx/cproveedores';
+  public $dependencia    = 901;
 
   public function getList(){
     $d = [];
@@ -63,6 +67,90 @@ class ContractGetter extends Controller
     $result = curl_exec($ch);
     $con    = json_decode($result);
 
+    echo "<pre>";
     var_dump($con);
+    echo "</pre>";
+  }
+
+  public function updateContracts(){
+    $contracts = Contract::all();
+
+    foreach($contracts as $contract){
+      $data = ['dependencia' => '901', 'contrato' => $contract->ocdsid];
+      // [2.1] the CURL stuff
+      $ch   = curl_init();
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_URL, $this->apiContrato);
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query($data));
+      $result = curl_exec($ch);
+      $con    = json_decode($result);
+
+      echo "<pre>";
+      var_dump($con);
+      echo "</pre>";
+    }
+  }
+
+  public function getProviders($from, $to){
+    // [2] make the call to the API
+    $data = ['rangoInicio' => "2", 'rangoFinal' => "4"];
+
+    // [2.1] the CURL stuff
+    $ch   = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $this->apiProveedores2);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query($data));
+    $result = curl_exec($ch);
+    $con    = json_decode($result);
+
+    echo "<pre>";
+    var_dump($con);
+    echo "</pre>";
+  }
+
+  public function saveProviders($from = 1){
+    $from = 37822;
+    $step = 100;
+    $max_steps = 100;
+    $walk = true;
+
+    while($walk){
+      // [2] make the call to the API
+      $data = ['rangoInicio' => $from, 'rangoFinal' => $from+$step];
+
+      // [2.1] the CURL stuff
+      $ch   = curl_init();
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_URL, $this->apiProveedores2);
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query($data));
+      $result = curl_exec($ch);
+      $con    = json_decode($result);
+
+      forEach($con as $p){
+        $provider = Provider::firstOrCreate(['rfc' => $p->rfc, 'name' => $p->name]);
+      
+        $provider->total = $p->total;
+        // address
+        $provider->street   = $p->address->streetAddress;
+        $provider->locality = $p->address->locality;
+        $provider->region   = $p->address->region;
+        $provider->zip      = $p->address->postalCode;
+        $provider->country  = $p->address->countryName;
+        // contactPoint
+        $provider->contact_name = $p->contactPoint->name;
+        $provider->email = $p->contactPoint->email;
+        $provider->phone = $p->contactPoint->telephone;
+        $provider->fax = $p->contactPoint->faxNumber;
+        $provider->url = $p->contactPoint->url;
+        $provider->update();
+      }
+      echo $from . "<br>";
+      $max_steps--;
+      $from += $step;
+      if($max_steps < 1) $walk = false;
+    }
   }
 }
