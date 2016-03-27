@@ -84,6 +84,8 @@ class ContractGetter extends Controller
             $planning->project  = $r->planning->budget->project;
 
             $planning->update();
+
+            $release->planning_id = $planning->id;
           }
           /*
 | local_id        | int(11)          | NO   |     | NULL    |                |
