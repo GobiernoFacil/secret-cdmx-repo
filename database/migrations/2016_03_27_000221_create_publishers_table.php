@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPlanningsTable extends Migration
+class CreatePublishersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class AddPlanningsTable extends Migration
      */
     public function up()
     {
-        Schema::create('plannings', function (Blueprint $table) {
+        Schema::create('publishers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('release_id');
-            $table->float('amount')->nullable();
-            $table->string('currency')->nullable();
-            $table->string('project')->nullable();
+            $table->string("scheme")->nullable();
+            $table->string("name")->nullable();
+            $table->string("uri")->nullable();
+            $table->string("uid")->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class AddPlanningsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('plannings');
+        Schema::drop('publishers');
     }
 }

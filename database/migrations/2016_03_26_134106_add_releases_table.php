@@ -14,6 +14,15 @@ class AddReleasesTable extends Migration
     {
         Schema::create('releases', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('local_id');
+            $table->integer('contract_id');
+            $table->string('ocid');
+            $table->date('date')->nullable();
+            $table->string('initiation_type')->nullable();
+            $table->integer('planning_id')->nullable();
+            $table->integer('buyer_id')->nullable();
+            $table->integer('tender_id')->nullable();
+            $table->string('language')->nullable();
             $table->timestamps();
         });
     }

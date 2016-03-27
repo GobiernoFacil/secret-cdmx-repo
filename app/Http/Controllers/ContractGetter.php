@@ -44,10 +44,10 @@ class ContractGetter extends Controller
       ]);
     }
     
-    //header("Content-Type: application/json");
-    //echo $result;
     var_dump($d);
   }
+
+  private function 
 
   public function getMetaData($ocid){
     // [1] Validate ocid & redirect if not valid
