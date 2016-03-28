@@ -17,6 +17,10 @@ class Release extends Model
     return $this->hasOne('App\Models\Planning');
   }
 
+  public function buyer(){
+    return $this->belongsTo('App\Models\Buyer', 'buyer_id', 'id');
+  }
+
   public function tender(){
     return $this->hasOne('App\Models\Tender');
   }

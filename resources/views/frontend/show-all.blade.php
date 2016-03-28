@@ -15,6 +15,8 @@
     budget: {{number_format($r->planning->amount)}}<br>
     tender title: {{$r->tender->title}}<br>
     tender description: {{$r->tender->description}}<br>
+    buyer name: {{$r->buyer ? $r->buyer->name : "nope"}}<br>
+    <br>
     @endif
   </li>
 @endforeach

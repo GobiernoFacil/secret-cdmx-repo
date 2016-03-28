@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Buyer;
 use App\Models\Contract;
 use App\Models\Planning;
 use App\Models\Provider;
@@ -114,10 +115,20 @@ class ContractGetter extends Controller
 
             $tender->update();
           }
-          /*
-          | buyer_id        | int(11)          | YES  |     | NULL    |                
-          | tender_id       | int(11)          | YES  |     | NULL    |                |
-          */
+
+          // create buyer
+          if($r->buyer){
+            $buyer = Buyer::firstOrCreate([
+              "local_id" => $r->buyer->identifier->id,
+              "name"     => $r->buyer->name
+            ]);
+
+            $buyer->uri = $r->buyer->identifier->uri;
+            $buyer->update();
+
+            $release->buyer_id = $buyer->id;
+            $release->update();
+          }
         }
       }
     }
