@@ -16,4 +16,8 @@ class Release extends Model
   public function planning(){
     return $this->hasOne('App\Models\Planning');
   }
+
+  public function tender(){
+    return $this->hasOne('App\Models\Tender');
+  }
 }

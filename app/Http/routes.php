@@ -28,6 +28,8 @@ Route::get('contratos', "Contracts@index");
 Route::get('contrato/{ocid}', "Contracts@show");
 Route::get('contrato/json/{ocid}', "Contracts@showRaw");
 
+Route::get('_contratos', 'Contracts@showAll');
+
 /*
 .......................................
 . T H E   A P I   M I D D L E W A R E .
@@ -48,5 +50,5 @@ Route::get('api/contratos/todos', 'ApiCDMX@listAll');
 */
 
 Route::group(['middleware' => ['web']], function () {
-  Route::get('_contratos', 'Contracts@showAll');
+  //Route::get('_contratos', 'Contracts@showAll');
 });

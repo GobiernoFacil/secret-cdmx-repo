@@ -10,7 +10,11 @@
   <li>
     {{$contract->ocdsid}}<br>
     @if($contract->releases->count())
-    {{$contract->releases->first()->planning}}
+    <?php $r = $contract->releases->last(); ?>
+    title: {{$r->planning->project}}<br>
+    budget: {{number_format($r->planning->amount)}}<br>
+    tender title: {{$r->tender->title}}<br>
+    tender description: {{$r->tender->description}}<br>
     @endif
   </li>
 @endforeach

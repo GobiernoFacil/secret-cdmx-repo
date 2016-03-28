@@ -12,6 +12,7 @@ use App\Models\Planning;
 use App\Models\Provider;
 use App\Models\Publisher;
 use App\Models\Release;
+use App\Models\Tender;
 
 class ContractGetter extends Controller
 {
@@ -86,6 +87,32 @@ class ContractGetter extends Controller
             $planning->update();
 
             //$release->planning_id = $planning->id;
+          }
+          // create tender
+          if($r->tender){
+            $tender = Tender::firstOrCreate([
+              "release_id" => $release->id
+            ]);
+
+            $tender->local_id             = $r->tender->id;
+            $tender->title                = $r->tender->title;
+            $tender->description          = $r->tender->description;
+            $tender->status               = $r->tender->status;
+            $tender->amount               = $r->tender->value ? $r->tender->value->amount : null;
+            $tender->currency             = $r->tender->value ? $r->tender->value->currency : null;
+            $tender->procurement_method   = $r->tender->procurementMethod;
+            $tender->award_criteria       = $r->tender->awardCriteria;
+            $tender->tender_start         = $r->tender->tenderPeriod ? date("Y-m-d", strtotime($r->tender->tenderPeriod->startDate)) : null;
+            $tender->tender_end           = $r->tender->tenderPeriod ? date("Y-m-d", strtotime($r->tender->tenderPeriod->endDate)) : null;
+            $tender->enquiry_start        = $r->tender->enquiryPeriod ? date("Y-m-d", strtotime($r->tender->enquiryPeriod->startDate)) : null;
+            $tender->enquiry_end          = $r->tender->enquiryPeriod ? date("Y-m-d", strtotime($r->tender->enquiryPeriod->endDate)) : null;
+            $tender->award_start          = $r->tender->awardPeriod ? date("Y-m-d", strtotime($r->tender->awardPeriod->startDate)) : null;
+            $tender->award_end            = $r->tender->awardPeriod ? date("Y-m-d", strtotime($r->tender->awardPeriod->endDate)) : null;
+            $tender->has_enquiries        = $r->tender->hasEnquiries;
+            $tender->eligibility_criteria = $r->tender->eligibilityCriteria;
+            $tender->number_of_tenderers  = $r->tender->numberOfTenderers;
+
+            $tender->update();
           }
           /*
           | buyer_id        | int(11)          | YES  |     | NULL    |                
