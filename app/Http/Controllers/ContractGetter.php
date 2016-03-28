@@ -74,7 +74,7 @@ class ContractGetter extends Controller
           ]);
 
           // create planning
-          if($release->planning){
+          if($r->planning){
             $planning = Planning::firstOrCreate([
               "release_id" => $release->id
             ]);
@@ -85,18 +85,11 @@ class ContractGetter extends Controller
 
             $planning->update();
 
-            $release->planning_id = $planning->id;
+            //$release->planning_id = $planning->id;
           }
           /*
-| local_id        | int(11)          | NO   |     | NULL    |                |
-| contract_id     | int(11)          | NO   |     | NULL    |                |
-| ocid            | varchar(255)     | NO   |     | NULL    |                |
-| date            | date             | YES  |     | NULL    |                |
-| initiation_type | varchar(255)     | YES  |     | NULL    |                |
-| planning_id     | int(11)          | YES  |     | NULL    |                |
-| buyer_id        | int(11)          | YES  |     | NULL    |                |
-| tender_id       | int(11)          | YES  |     | NULL    |                |
-| language        | varchar(255)     | YES  |     | NULL    |                |
+          | buyer_id        | int(11)          | YES  |     | NULL    |                
+          | tender_id       | int(11)          | YES  |     | NULL    |                |
           */
         }
       }

@@ -26,6 +26,11 @@ class Contracts extends Controller
 		
 		return view("frontend.contracts_list")->with($data);
 	}
+
+    public function showAll(){
+      $contracts = Contract::all();
+      return view("frontend.show-all")->with(["contracts" => $contracts]);
+    }
 	
 	
 	//

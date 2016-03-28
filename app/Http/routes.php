@@ -48,5 +48,5 @@ Route::get('api/contratos/todos', 'ApiCDMX@listAll');
 */
 
 Route::group(['middleware' => ['web']], function () {
-
+  Route::get('_contratos', 'Contracts@showAll');
 });

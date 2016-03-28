@@ -12,4 +12,8 @@ class Release extends Model
   public function contract(){
     return $this->belongsTo('App\Models\Contract');
   }
+
+  public function planning(){
+    return $this->hasOne('App\Models\Planning');
+  }
 }
