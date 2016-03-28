@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="es-MX"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="es-MX" class="no-js"> <!--<![endif]-->
     <head>
 	    <meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,13 +38,16 @@
 -->
     </head>
 <body {!! (!isset($body_class)) ? '' : 'class="' . $body_class . '"'!!}>
-		<!--nav-->
-	    @include('frontend.layouts.nav')         
-	    
-	    <!--content-->
-        @yield('content')
-			
-         <!--footer-->
-		@include('frontend.layouts.footer')
-    </body>
+	<!--nav-->
+	@include('frontend.layouts.pages-nav') 
+
+	<!--nav page-->
+	@include('frontend.layouts.nav')         
+	
+	<!--content-->
+    @yield('content')
+		
+     <!--footer-->
+	@include('frontend.layouts.footer')
+</body>
 </html>

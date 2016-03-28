@@ -45,7 +45,9 @@
 		</div>
 	</footer>
 	
-	
+	</div><!--page ends-->
+</div>	<!--pages stack ends-->
+<button class="menu-button"><span>Menu</span></button>
 	<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -56,5 +58,7 @@
   ga('send', 'pageview');
 
 	</script>
+	<script src="/js/modernizr-custom.js"></script>
+	<script src="/js/main.js"></script>
 	</body>
 </html>

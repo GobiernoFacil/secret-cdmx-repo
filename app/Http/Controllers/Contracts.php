@@ -56,8 +56,7 @@ class Contracts extends Controller
     $con    = json_decode($result);
 
     // [3] if the ocid is invalid, redirect
-    var_dump($result);
-    die();
+  //  var_dump($result);
     if(empty($result)) return redirect("contratos");
 
     // [4] show the view
