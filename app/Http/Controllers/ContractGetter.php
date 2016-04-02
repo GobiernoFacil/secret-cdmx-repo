@@ -122,6 +122,12 @@ class ContractGetter extends Controller
                   'local_id'  => $it->id,
                   'tender_id' => $tender->id
                 ]);
+
+                $item->quantity    = $it->quantity;
+                $item->description = $it->description;
+                $item->unit        = $it->unit->name;
+
+                $item->update();
               }
             }
           }
