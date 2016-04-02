@@ -14,6 +14,7 @@ use App\Models\Provider;
 use App\Models\Publisher;
 use App\Models\Release;
 use App\Models\Tender;
+use App\Models\Tenderer;
 use App\Models\Item;
 
 class ContractGetter extends Controller
@@ -112,9 +113,33 @@ class ContractGetter extends Controller
             $tender->award_end            = $r->tender->awardPeriod ? date("Y-m-d", strtotime($r->tender->awardPeriod->endDate)) : null;
             $tender->has_enquiries        = $r->tender->hasEnquiries;
             $tender->eligibility_criteria = $r->tender->eligibilityCriteria;
+            $tender->submission_method    = count($r->tender->submissionMethod) ? implode(',',$r->tender->submissionMethod) : null; 
             $tender->number_of_tenderers  = $r->tender->numberOfTenderers;
 
             $tender->update();
+
+            if(count($r->tender->tenderers)){
+              foreach($r->tender->tenderers as $tn){
+                $tenderer = Tenderer::firstOrCreate([
+                  "rfc" => $tn->identifier->id
+                ]);
+
+                $tenderer->name         = $tn->name;
+                $tenderer->street       = $tn->address->streetAddress;
+                $tenderer->locality     = $tn->address->locality;
+                $tenderer->region       = $tn->address->region;
+                $tenderer->zip          = $tn->address->postalCode;
+                $tenderer->country      = $tn->address->countryName;
+                $tenderer->contact_name = $tn->contactPoint->name;
+                $tenderer->email        = $tn->contactPoint->email;
+                $tenderer->phone        = $tn->contactPoint->telephone;
+                $tenderer->fax          = $tn->contactPoint->faxNumber;
+                $tenderer->url          = $tn->contactPoint->url;
+
+                $tenderer->update();
+              }
+            }
+
 
             if(count($r->tender->items)){
               foreach($r->tender->items as $it){

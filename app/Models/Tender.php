@@ -11,4 +11,8 @@ class Tender extends Model
   public function items(){
     return $this->hasMany('App\Models\Item');
   }
+
+  public function tenderers(){
+    return $this->hasMany('App\Models\Tenderer');
+  }
 }
