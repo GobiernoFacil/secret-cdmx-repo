@@ -21,5 +21,16 @@ class Frontend extends Controller
     	return view("frontend.home")->with($data);
 	}
 
-  
+	//
+	//
+	//HOME
+	//
+	public function indexv2(){
+		$data                = [];
+    	$data['title']       = 'Contrataciones Abiertas de la CDMX';
+    	$data['description'] = 'Contrataciones Abiertas de la Ciudad de México';
+		$og_image			 = "img/og/contrataciones-abiertas-cdmx.png";
+    	$data['body_class']  = 'home2';
+    	return view("frontend.homev2")->with($data);
+	}
 }
