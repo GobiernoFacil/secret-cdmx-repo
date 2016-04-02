@@ -57,6 +57,7 @@ define(function(require){
     //
     //
     initialize : function(){
+      this.count_amount();
     },
   
 
@@ -67,6 +68,50 @@ define(function(require){
     // L O C A L   T R A N S I T I O N S
     // --------------------------------------------------------------------------------
     //
+    
+    
+    /*****
+	    COUNTER
+	*****/
+    count_amount : function() {
+	    var bought 			= {amount:0},
+	    	number 			= {tender:0},
+	    	numbers 			= {contracts:0},
+	    	amountDisplay	= document.getElementById("amount"),
+	    	tenderDisplay	= document.getElementById("tender"),
+	    	contractDisplay	= document.getElementById("contracts");
+	    	r 				 = new TimelineMax();
+	    
+	    r.add(TweenMax.to(bought, 1, {
+		    		amount:"+=17", 
+		    		roundProps:"amount", 
+		    		onUpdate: function () {  
+			    		amountDisplay.innerHTML = Math.ceil(bought.amount);
+			    	}, 
+			    	ease:Circ.easeOut
+			    })
+		);
+		r.add(TweenMax.to(number, 1, {
+		    		tender:"+=16", 
+		    		roundProps:"tender", 
+		    		onUpdate: function () {  
+			    		tenderDisplay.innerHTML = Math.ceil(number.tender);
+			    	}, 
+			    	ease:Circ.easeOut
+			    })
+		);
+		r.add(TweenMax.to(numbers, 1, {
+		    		contracts:"+=4", 
+		    		roundProps:"contracts", 
+		    		onUpdate: function () {  
+			    		contractDisplay.innerHTML = Math.ceil(numbers.contracts);
+			    	}, 
+			    	ease:Circ.easeOut
+			    })
+		);
+    },
+    
+    
 	show_step : function(e){
     	e.preventDefault();
     	var   div 	= $( e.currentTarget ).attr("data-step");    	  		
