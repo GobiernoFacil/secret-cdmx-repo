@@ -14,6 +14,7 @@ use App\Models\Provider;
 use App\Models\Publisher;
 use App\Models\Release;
 use App\Models\Tender;
+use App\Models\Item;
 
 class ContractGetter extends Controller
 {
@@ -114,6 +115,15 @@ class ContractGetter extends Controller
             $tender->number_of_tenderers  = $r->tender->numberOfTenderers;
 
             $tender->update();
+
+            if(count($r->tender->items)){
+              foreach($r->tender->items as $it){
+                $item = Item::firstOrCreate([
+                  'local_id'  => $it->id,
+                  'tender_id' => $tender->id
+                ]);
+              }
+            }
           }
 
           // create buyer

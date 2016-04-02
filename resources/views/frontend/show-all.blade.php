@@ -16,6 +16,7 @@
     tender title: {{$r->tender->title}}<br>
     tender description: {{$r->tender->description}}<br>
     buyer name: {{$r->buyer ? $r->buyer->name : "nope"}}<br>
+    items: {{$r->tender->items->count()}}<br>
     <br>
     @endif
   </li>
