@@ -9,13 +9,14 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Buyer;
 use App\Models\Contract;
+use App\Models\Item;
 use App\Models\Planning;
 use App\Models\Provider;
 use App\Models\Publisher;
 use App\Models\Release;
+use App\Models\SingleContract;
 use App\Models\Tender;
 use App\Models\Tenderer;
-use App\Models\Item;
 
 class ContractGetter extends Controller
 {
@@ -77,6 +78,42 @@ class ContractGetter extends Controller
             "language"        => $r->language
           ]);
 
+          if(count($r->contracts)){
+              foreach($r->contracts as $single){
+                $single_contract = SingleContract::firstOrCreate([
+                  "local_id"   => $single->id,
+                  "release_id" => $release->id
+                ]);
+
+                $single_contract->award_id = $single->awardID;
+                $single_contract->title = $single->title;
+                $single_contract->description = $single->description;
+                $single_contract->status = $single->status;
+                $single_contract->contract_start = $single->period ? date("Y-m-d", strtotime($single->period->startDate)) : null;
+                $single_contract->contract_end = $single->period ? date("Y-m-d", strtotime($single->period->endDate)) : null;
+                $single_contract->amount = $single->value->amount;
+                $single_contract->currency = $single->value->currency;
+                $single_contract->date_signed = $single->dateSigned ? date("Y-m-d", strtotime($single->dateSigned)) : null;
+                $single_contract->documents = count($single->documents);// ? implode(',',$r->tender->submissionMethod) : null;
+
+                $single_contract->update();
+
+                if(count($single->items)){
+                  foreach($single->items as $it){
+                    $item = $single_contract->items()->firstOrCreate([
+                      'local_id'  => $it->id
+                    ]);
+
+                    $item->quantity    = $it->quantity;
+                    $item->description = $it->description;
+                    $item->unit        = $it->unit->name;
+
+                    $item->update();
+                  }
+                }
+              }
+            }
+
           // create planning
           if($r->planning){
             $planning = Planning::firstOrCreate([
@@ -118,6 +155,7 @@ class ContractGetter extends Controller
 
             $tender->update();
 
+
             if(count($r->tender->tenderers)){
               foreach($r->tender->tenderers as $tn){
                 $tenderer = Tenderer::firstOrCreate([
@@ -143,9 +181,8 @@ class ContractGetter extends Controller
 
             if(count($r->tender->items)){
               foreach($r->tender->items as $it){
-                $item = Item::firstOrCreate([
-                  'local_id'  => $it->id,
-                  'tender_id' => $tender->id
+                $item = $tender->items()->firstOrCreate([
+                  'local_id'  => $it->id
                 ]);
 
                 $item->quantity    = $it->quantity;
