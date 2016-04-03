@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Award;
 use App\Models\Buyer;
 use App\Models\Contract;
 use App\Models\Item;
@@ -77,6 +78,38 @@ class ContractGetter extends Controller
             "initiation_type" => $r->initiationType,
             "language"        => $r->language
           ]);
+
+          if(count($r->awards)){
+            foreach($r->awards as $aw){
+              $award = Award::firstOrCreate([
+                "release_id" => $release->id,
+                "local_id"   => $aw->id
+              ]);
+
+              $award->title       = $aw->title;
+              $award->description = $aw->description;
+              $award->status      = $aw->status;
+              $award->date        = date("Y-m-d", strtotime($aw->date));
+              $award->value       = $aw->value->amount;
+              $award->currency    = $aw->value->currency;
+
+              $award->update();
+
+              if(count($aw->items)){
+                foreach($aw->items as $it){
+                  $item = $award->items()->firstOrCreate([
+                    'local_id'  => $it->id
+                  ]);
+
+                  $item->quantity    = $it->quantity;
+                  $item->description = $it->description;
+                  $item->unit        = $it->unit->name;
+
+                  $item->update();
+                }
+              }
+            }
+          }
 
           if(count($r->contracts)){
               foreach($r->contracts as $single){
