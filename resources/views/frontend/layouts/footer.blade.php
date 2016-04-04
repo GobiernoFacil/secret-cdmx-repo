@@ -52,7 +52,10 @@
 
 
 @if ($body_class == 'home2')
-<script data-main="/js/apps/home/main" src="js/bower_components/requirejs/require.js"></script>
+<script data-main="/js/apps/home/main" src="/js/bower_components/requirejs/require.js"></script>
+@endif
+@if ($body_class == 'contract single')
+<script data-main="/js/apps/contrato-landing/main" src="/js/bower_components/requirejs/require.js"></script>
 @endif
 
 <script src="/js/main.js"></script>
