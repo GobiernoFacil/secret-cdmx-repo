@@ -25,6 +25,14 @@
       @endforeach
     </ul>
     @endif
+    contratos : {{$r->singlecontracts ? $r->singlecontracts->count() : "nope"}}<br>
+    @if($r->singlecontracts->count())
+    <ul>
+      @foreach($r->singlecontracts as $item)
+      <li>{{$item->title}}</li>
+      @endforeach
+    </ul>
+    @endif
     items: {{$r->tender->items->count()}}<br>
     @if($r->tender->items->count())
     <ul>
