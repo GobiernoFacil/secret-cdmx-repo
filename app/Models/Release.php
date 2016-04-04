@@ -25,6 +25,10 @@ class Release extends Model
     return $this->hasOne('App\Models\Tender');
   }
 
+  public function singlecontracts(){
+    return $this->hasMany('App\Models\SingleContract');
+  }
+  
   public function awards(){
     return $this->hasMany('App\Models\Award');
   }

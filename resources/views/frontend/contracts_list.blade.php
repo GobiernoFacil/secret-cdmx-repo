@@ -88,66 +88,83 @@
 		</div>
 		<div class="col-sm-12">			
 			<ul class="list">
-	
-				<?php
-				  // aquí se capturan los datos para la lista  
-				  foreach ($loscontracts as $key => $value): 
-				  	$title  = $value->releases[0]->planning->budget->project;
-				    $budget = $value->releases[0]->planning->budget->amount->amount;
-				    $description_tender = $value->releases[0]->tender->description;
-				  	$title_contract  = $value->releases[0]->tender->title;
-				    $buyer  = $value->releases[0]->buyer;
-				    $awards = $value->releases[0]->awards;
-				    $contracts = $value->releases[0]->contracts;
-				    $first_supplier = empty($awards) ? "sin proveedor" : $awards[0]->suppliers[0]->name;
-				    $first_contract_items = empty($contracts) ? 0 : count($contracts[0]->items);
-				    $first_contract_status = empty($contracts) ? null : $contracts[0]->status;
-				    $first_contract_time = empty($contracts) ? null : strtotime($contracts[0]->period->startDate);
-				?>
-				<li class="row tender planning <?php echo empty($awards) ? '' : 'award'; ?> <?php echo empty($contracts) ? '' : 'contract'; ?>">
-					<div class="col-sm-9 top">
-						<?php if ($value->releases[0]->tender):?>
-						<h2><a href="{{ url('contrato/' . $key) }}"><?php echo $title_contract; ?> <span><?php echo $value->releases[0]->tender->id;?> </span></a></h2>
-						<?php else:?>
-						<h2><a href="contrato-v2.php?ocid=<?php echo $key; ?>"><?php echo $title; ?> </a></h2>
-						<?php endif;?>
-						<p class="description"><span>Descripción:</span> <?php echo $description_tender ? $description_tender : "";?></p>
-					</div>
-					<div class="col-sm-3 amount top">
-						<p><span>$</span> <?php echo number_format($budget); ?> <span>MXN</span></p>
-					</div>
-					<div class="clearfix"></div>
+			@foreach($contracts as $contract)
+				<?php $contract_ocdsid = $contract->ocdsid?>
+				@if($contract->releases->count())
+					<?php $r = $contract->releases->last(); 
+						// aquí se capturan los datos para la lista  
+						$title  			= $r->planning->project;
+						$budget 			= number_format($r->planning->amount);
+						//tender
+						$tender_title  		= $r->tender->title;
+						$tender_id  		= $r->tender->id;
+						$tender_description = $r->tender->description;
+						$tender_amount 		= $r->tender->amount;
+						$tender_start		= $r->tender->tender_start;
+						//buyer
+						$buyer_name  		= $r->buyer ? $r->buyer->name : '';
+						//awards
+						$awards 			= $r->awards;
+						//single contracts 
+						$single_contracts 	= $r->singlecontracts;
+					?>
+					<li class="row tender planning {{ empty($awards) ? '' : 'award' }} {{ empty($contracts) ? '' : 'contract'}}">
+						<!--top-->
+						<div class="col-sm-9 top">
+							<h2><a href="{{ url('contrato/' . $contract_ocdsid) }}">{{ $tender_title }} 
+								<span>{{$contract_ocdsid}} </span></a></h2>
+							<p class="description"><span>Descripción:</span> {{ $tender_description ? $tender_description : ""}}</p>
+						</div>
+						<!--amount-->
+						<div class="col-sm-3 amount top">
+							<p><span>$</span> {{$budget}} <span>MXN</span></p>
+						</div>
+						<div class="clearfix"></div>
+						<!--icons-->
 					<div class="icons">
 						<div class="col-sm-4">
-							<p>Comprador: <a href="#"><?php echo ($buyer ? $buyer->name : "No está definido"); ?></a></p>
+							<p>Comprador: <a href="#">{{ $buyer_name ? $buyer_name : "No está definido" }}</a></p>
 						</div>
 						<div class="col-sm-4">
-							<p>Proveedor: <a href="#"><?php echo $first_supplier; ?></a></p>
+							@if($awards->count())
+							<p>{{$awards->count() == 1 ? 'Proveedor: ' : 'Proveedores'}} 
+								<a href="#"><?php // echo $first_supplier; ?></a>
+							</p>
+								@foreach ($awards as $award)
+									@foreach($award->suppliers as $supplier)
+									{{$supplier->name}}
+									@endforeach
+								@endforeach
+							@endif
 						</div>
+						
 						<div class="col-sm-4">
 							<ul>
 								<li>
-									<?php
-									if(empty($first_contract_status)){
-										echo "no ha iniciado";
-									} 
-									elseif($first_contract_status == "active"){
-										echo "Activo";
-									}
-									else{
-										echo "Completado";
-									}
-									?>
+									@if($single_contracts->count())
+									En contratación
+									@else 
+										@if($awards->count())
+										En adjudicación
+										@else
+											@if($tender_id)
+											En Licitación
+											@else
+											No ha comenzado
+											@endif
+										@endif
+									@endif
+									
 								</li>
-								<li class="contrato_num"><?php echo $first_contract_items; ?></li>
+								<li class="contrato_num">{{$r->tender->items->count()}}</li>
 								<li class="time_num">
 								  <?php
-								  if(empty($first_contract_time)){
+								  if(empty($tender_start)){
 								   	echo "0 meses";
 								  }
 								  else{
 								  	$from = new DateTime();
-								  	$from->setTimestamp($first_contract_time);
+								  	$from->setTimestamp(strtotime($tender_start));
 								  	$to = new DateTime();
 								  	$to->setTimestamp(time());
 
@@ -169,19 +186,14 @@
 								</li>
 							</ul>
 						</div>
-						<!--
-						<pre>
-						  <?php var_dump($awards); ?>
-						</pre>
-						-->
 						
 						<div class="clearfix"></div>
 					</div>
 
 				</li>
-			<?php endforeach; ?>
-
-
+					
+				@endif
+			@endforeach
 			</ul>
 		</div>
 	</div>
