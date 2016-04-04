@@ -19,9 +19,9 @@
 	  	@endif
 
 		@if($elcontrato->awards->count())
-	  	<li><a href="#" id="btn-award-nav" class="nav_stage <?php echo !$elcontrato->singlecontracts ? 'current' : '';?>" data-id="awards" data-title="Adjudicación">
+	  	<li><a href="#" id="btn-award-nav" class="nav_stage {{ !$elcontrato->singlecontracts ? 'current' : '' }}" data-id="awards" data-title="Adjudicación">
 	  		<?php echo file_get_contents("img/nav_adjudicacion.svg"); ?></a> 
-	  		<ul id="nav_award">
+	  		<ul id="nav_award" {!! $elcontrato->singlecontracts->count() ? "class='hide'" : '' !!}>
 	  		  <?php $count_nav = 0;?>
 	  		  @foreach($elcontrato->awards as $award)
 	  		  <?php 
@@ -35,7 +35,7 @@
 	  	@endif
 	  	
 	  	@if($elcontrato->tender)
-	  	<li><a href="#" data-id="tender" class="nav_stage <?php echo (!$elcontrato->singlecontracts || !$elcontrato->awards) ? 'current' : '';?>" data-title="Licitación"><?php echo file_get_contents("img/nav_licitacion.svg"); ?></a></li>
+	  	<li><a href="#" data-id="tender" class="nav_stage {{ (!$elcontrato->singlecontracts || !$elcontrato->awards) ? 'current' : ''}}" data-title="Licitación"><?php echo file_get_contents("img/nav_licitacion.svg"); ?></a></li>
 	  	@endif
 	  	@if($elcontrato->planning)
 	  	<li><a href="#" data-id="planning"class="nav_stage" data-title="Planeación"><?php echo file_get_contents("img/nav_planeacion.svg"); ?></a></li>
