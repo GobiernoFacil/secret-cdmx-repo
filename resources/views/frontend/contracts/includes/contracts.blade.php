@@ -1,6 +1,7 @@
-<div id="contracts" class="container_info hide">
- <?php foreach($elcontrato->singlecontracts as $contract):?>
-          <div id="contract-<?php echo $contract->id;?>">
+<div id="contracts" class="container_info">
+	<?php $count = 0;?>
+	@foreach($elcontrato->singlecontracts as $contract)
+	<div id="contract-<?php echo $contract->id;?>" class="sub_container {{$count > 0 ? 'hide' : ''}}">
           <div class="row divider">
             <div class="col-sm-12">
               <p class="title_section">Contrato</p>
@@ -61,6 +62,7 @@
                 <p class="title_section">DOCUMENTOS</p>
               </div> 
             </div>
-          </div>
-          <?php endforeach;?>
+    </div>
+    <?php $count = $count++;?>
+    @endforeach
 </div>

@@ -1,6 +1,7 @@
 <div id="awards" class="container_info hide">
+	<?php $count = 0;?>
 <?php foreach($elcontrato->awards as $award):?>
-          <div id="award-<?php echo $award->id;?>">
+          <div id="award-<?php echo $award->id;?>" class="sub_container {{$count > 0 ? 'hide' : ''}}">
             <div class="row divider">
               <div class="col-sm-12">
                 <p class="title_section">Adjudicación</p>
