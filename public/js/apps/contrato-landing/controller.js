@@ -29,6 +29,7 @@ define(function(require){
 
   var   timeline  		= $(".timeline li"),
   		container_info  = $(".container_info"),
+  		sub_container	= $(".sub_container"),
   		//subnav
 		nav_contract 	= $("#nav_contract"),
 		nav_award 	 	= $("#nav_award");
@@ -43,6 +44,7 @@ define(function(require){
     events : {
 	    "click a.nav_stage" 	: "show_step",
 	    "click #nav_contract a" : "show_substep",
+	    "click #nav_award a" : "show_substep",
     },
 
     el : "body",
@@ -66,8 +68,11 @@ define(function(require){
     	container_info.addClass("hide");
     	nav_award.addClass("hide");
     	nav_contract.addClass("hide");
+    	//hide
+		sub_container.addClass("hide");
     	/// show
-    	$("#" + dataID).removeClass("hide"); 	
+    	$("#" + dataID).removeClass("hide"); 
+		$("#" + dataID + ' div').first().removeClass("hide");	
     	if(dataID == "contracts")
     	{
 	    	nav_contract.removeClass("hide");
@@ -80,12 +85,18 @@ define(function(require){
 	    	timeline.removeClass("active");
 	    	nav_award.children("li:first-child").addClass("active");
     	}
-		console.log(dataID);
     },
     
     show_substep : function(e) {
     	e.preventDefault();
-    	this.change_class(e.currentTarget);
+    	var   dataID 	= $( e.currentTarget ).attr("data-id");    	 
+		///update class
+		timeline.children("li ul a").removeClass("current");
+		$(e.currentTarget).addClass("current");
+		//hide
+		sub_container.addClass("hide");
+		//show
+		$("#" + dataID).removeClass("hide");
     },
     
     change_class : function(element){
