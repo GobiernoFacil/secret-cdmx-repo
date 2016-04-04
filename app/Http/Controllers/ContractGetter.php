@@ -16,6 +16,7 @@ use App\Models\Provider;
 use App\Models\Publisher;
 use App\Models\Release;
 use App\Models\SingleContract;
+use App\Models\Supplier;
 use App\Models\Tender;
 use App\Models\Tenderer;
 
@@ -106,6 +107,29 @@ class ContractGetter extends Controller
                   $item->unit        = $it->unit->name;
 
                   $item->update();
+                }
+              }
+
+              if(count($aw->suppliers)){
+                foreach($aw->suppliers as $sup){
+                  $supplier = Supplier::firstOrCreate([
+                    "award_id" => $aw->id,
+                    "rfc"      => $sup->identifier->id
+                  ]);
+
+                  $supplier->name         = $sup->name;
+                  $supplier->street       = $sup->address->streetAddress;
+                  $supplier->locality     = $sup->address->locality;
+                  $supplier->region       = $sup->address->region;
+                  $supplier->zip          = $sup->address->postalCode;
+                  $supplier->country      = $sup->address->countryName;
+                  $supplier->contact_name = $sup->contactPoint->name;
+                  $supplier->email        = $sup->contactPoint->email;
+                  $supplier->phone        = $sup->contactPoint->telephone;
+                  $supplier->fax          = $sup->contactPoint->faxNumber;
+                  $supplier->url          = $sup->contactPoint->url;
+
+                  $supplier->update();
                 }
               }
             }
