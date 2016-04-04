@@ -43,7 +43,8 @@ class Contracts extends Controller
 	
 	$contract = Contract::where("ocdsid", $ocid)->get()->first();
     if(!$contract) return redirect("contratos");
-	$con = $contract->releases->last(); 
+	$ocid	= $ocid;
+	$con 	= $contract->releases->last(); 
     // [2] show the view
     	$data                = [];
 		$data['title']       = $con->tender->title . " | Contrataciones Abiertas de la CDMX";
@@ -51,6 +52,7 @@ class Contracts extends Controller
 		$data['og_image']	 = "img/og/contrato-cdmx.png";
 		$data['body_class']  = 'contract single';
 		$data['elcontrato']	 = $con;
+		$data['ocid']	 	 = $ocid;
     
     return view("frontend.contracts.contract")->with($data);
 
