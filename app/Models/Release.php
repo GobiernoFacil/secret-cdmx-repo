@@ -24,4 +24,8 @@ class Release extends Model
   public function tender(){
     return $this->hasOne('App\Models\Tender');
   }
+
+  public function awards(){
+    return $this->hasMany('App\Models\Award');
+  }
 }
