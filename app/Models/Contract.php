@@ -15,4 +15,8 @@ class Contract extends Model
   public function releases(){
     return $this->hasMany('App\Models\Release');
   }
+
+  public function plannings(){
+    return $this->hasManyThrough('App\Models\Planning', 'App\Models\Release');
+  }
 }

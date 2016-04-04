@@ -19,7 +19,10 @@ Route::get('home2', "Frontend@indexv2");
 Route::get('v2', "Contracts@index");
 Route::get('dependencias', "Offices@index");
 
-Route::get('test', "ContractGetter@getList");
+// esta ruta actualizaba los datos de contractos. Ahora debe hacerse desde
+// la terminal. En el directorio raíz:
+// php artisan contracts:update
+// Route::get('test', "ContractGetter@getList");
 
 Route::get('test2/{ocid}', "ContractGetter@getMetaData");
 Route::get('test3/{from}/{to}', "ContractGetter@getProviders");
@@ -45,7 +48,7 @@ Route::get('api/contratos/todos', 'ApiCDMX@listAll');
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
-|
+| 
 | This route group applies the "web" middleware group to every route
 | it contains. The "web" middleware group is defined in your HTTP
 | kernel and includes session state, CSRF protection, and more.
@@ -53,5 +56,6 @@ Route::get('api/contratos/todos', 'ApiCDMX@listAll');
 */
 
 Route::group(['middleware' => ['web']], function () {
+  Route::get('contratos/busqueda/{page?}', 'Search@index');
   //Route::get('_contratos', 'Contracts@showAll');
 });

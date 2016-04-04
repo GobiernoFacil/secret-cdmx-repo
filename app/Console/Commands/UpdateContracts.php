@@ -397,11 +397,13 @@ class UpdateContracts extends Command
       $response = [];
       forEach($contracts as $c){
         $contract = Contract::firstOrCreate([
-          'ocdsid'         => $c->ocdsID, 
-          'ejercicio'      => $c->ejercicio, 
-          'cvedependencia' => $c->cveDependencia, 
-          'nomDependencia' => $c->nomDependencia
+          'ocdsid'         => $c->ocdsID
         ]);
+        $contract->ejercicio      = (int)$c->ejercicio;
+        $contract->cvedependencia = (int)$c->cveDependencia;
+        $contract->nomDependencia = $c->nomDependencia;
+        $contract->update();
+
         $response[] = $contract;
       }
 
