@@ -1,4 +1,4 @@
-        <div id="planning">
+        <div id="planning" class="container_info hide">
           <div class="row divider">
             <div class="col-sm-12">
               <p class="title_section">Planeación</p>
