@@ -24,12 +24,12 @@ class Contracts extends Controller
 		//// lista de contratos aún sin implementar en el view
 		$data['contracts']  = $contracts;
 		
-		return view("frontend.contracts_list")->with($data);
+		return view("frontend.contracts.contracts_list")->with($data);
 	}
 
     public function showAll(){
       $contracts = Contract::all();
-      return view("frontend.show-all")->with(["contracts" => $contracts]);
+      return view("frontend.contracts.show-all")->with(["contracts" => $contracts]);
     }
 	
 	
@@ -40,34 +40,19 @@ class Contracts extends Controller
     // [1] Validate ocid & redirect if not valid
     $r = preg_match('/^[\w-]+$/', $ocid);
     if(!$r) return redirect("contratos");
-
-    // [2] make the call to the API
-    $url  = 'http://187.141.34.209:9009/ocpcdmx/contratos';
-    $data = ['dependencia' => '901', 'contrato' => $ocid];
-
-    // [2.1] the CURL stuff
-    $ch   = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query($data));
-    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,5);
-    $result = curl_exec($ch);
-    $con    = json_decode($result);
-
-    // [3] if the ocid is invalid, redirect
-  //  var_dump($result);
-    if(empty($result)) return redirect("contratos");
-
-    // [4] show the view
+	
+	$contract = Contract::where("ocdsid", $ocid)->get()->first();
+    if(!$contract) return redirect("contratos");
+	$con = $contract->releases->last(); 
+    // [2] show the view
     	$data                = [];
-		$data['title']       = $con->releases[0]->tender->title . " | Contrataciones Abiertas de la CDMX";
-		$data['description'] = "Contrato: " . $con->releases[0]->tender->description;
+		$data['title']       = $con->tender->title . " | Contrataciones Abiertas de la CDMX";
+		$data['description'] = "Contrato: " . $con->tender->description;
 		$data['og_image']	 = "img/og/contrato-cdmx.png";
 		$data['body_class']  = 'contract';
 		$data['elcontrato']	 = $con;
     
-    return view("frontend.contract")->with($data);
+    return view("frontend.contracts.contract")->with($data);
 
   }
 
@@ -117,6 +102,6 @@ class Contracts extends Controller
     $data['body_class']  = 'contract';
     $data['elcontrato']  = $con;
     
-    return view("frontend.contract")->with($data);
+    return view("frontend.contracts.contract")->with($data);
   }
 }
