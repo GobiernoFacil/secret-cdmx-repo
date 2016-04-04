@@ -1,3 +1,4 @@
+<div id="contracts" class="container_info hide">
  <?php foreach($elcontrato->singlecontracts as $contract):?>
           <div id="contract-<?php echo $contract->id;?>">
           <div class="row divider">
@@ -62,3 +63,4 @@
             </div>
           </div>
           <?php endforeach;?>
+</div>
