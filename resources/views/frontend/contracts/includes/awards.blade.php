@@ -1,4 +1,5 @@
- <?php foreach($elcontrato->awards as $award):?>
+<div id="awards" class="container_info hide">
+<?php foreach($elcontrato->awards as $award):?>
           <div id="award-<?php echo $award->id;?>">
             <div class="row divider">
               <div class="col-sm-12">
@@ -7,7 +8,6 @@
                 <h2>ID: <?php echo $award->id;?> <span class="label <?php echo $award->status;?>"><?php echo $award->status == "active" ? "ACTIVO":"";?></span></h2>
               </div>
             </div>
-            
             <div class="row divider">
               <div class="col-sm-6">
                 <p class="title_section">Descripción</p>
@@ -17,11 +17,14 @@
                 <h2 class="amount"><span>$</span> <?php echo number_format($award->value,2,'.',',');?> <span><?php echo $award->currency;?></span></h2>
               </div>
             </div>
-            
             <div class="row divider">
               <div class="col-sm-6">
+	            @if($award->suppliers->count())
                 <p class="title_section">Proveedor</p>
-                <p><a href="#"><?php echo $award->suppliers[0]->name;?></a></p>
+                	@foreach($award->suppliers as $supplier)
+                	<p><a href="#">{{$supplier->name}}</a></p>
+                	@endforeach
+                 @endif 
               </div>
               <div class="col-sm-6">
                 <p class="title_section">Fecha</p>
@@ -29,7 +32,6 @@
                 <p><?php echo date('d-m-Y',$time_award);?></p>
               </div>
             </div>
-            
             <div class="row">
               <div class="col-sm-8">
                 <p class="title_section">ARTÍCULOS</p>
@@ -49,3 +51,4 @@
             </div>
           </div>
           <?php endforeach;?>
+</div>
