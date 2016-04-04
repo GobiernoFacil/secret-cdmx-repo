@@ -49,7 +49,7 @@ class Contracts extends Controller
 		$data['title']       = $con->tender->title . " | Contrataciones Abiertas de la CDMX";
 		$data['description'] = "Contrato: " . $con->tender->description;
 		$data['og_image']	 = "img/og/contrato-cdmx.png";
-		$data['body_class']  = 'contract';
+		$data['body_class']  = 'contract single';
 		$data['elcontrato']	 = $con;
     
     return view("frontend.contracts.contract")->with($data);
