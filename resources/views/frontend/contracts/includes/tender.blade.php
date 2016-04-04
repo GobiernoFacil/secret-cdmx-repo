@@ -3,7 +3,7 @@
             <div class="col-sm-12">
               <p class="title_section">Licitación</p>
               <h1><?php echo $elcontrato->tender->title;?></h1>
-              <h2><?php echo $elcontrato->tender->id;?> 
+              <h2>{{$ocid}} 
               <span class="label <?php echo $elcontrato->tender->status;?>">
               <?php echo $elcontrato->tender->status == "complete" ? 'COMPLETO' : '';?></span>
               </h2>
