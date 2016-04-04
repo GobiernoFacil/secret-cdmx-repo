@@ -18,47 +18,8 @@
       <h2><?php echo $elcontrato->planning->budget->project;?></h2>
       <?php endif;?>
     </div>
-    <nav>
-      <ul class="timeline">
-        <?php if($elcontrato->contracts):?>
-        <li><a href="#"  id="btn-contract-nav" class="nav_stage current" data-title="Contratación">
-          <?php echo file_get_contents("img/nav_contratacion.svg"); ?></a>
-          <ul id="nav_contract">
-            <?php 
-              $count_nav = 0;
-              foreach($elcontrato->contracts as $contract):?>
-            <?php 
-                $count_nav++;
-                $time_contract = strtotime($contract->dateSigned);
-                $time_contract = date('d/m/Y',$time_contract);?>
-            <li class="active"><a id="btn-contract-<?php echo $count_nav;?>" href="#" data-title="<?php echo $time_contract;?>" class="t_right"></a></li>
-            <?php endforeach;?>
-          </ul>
-        </li>
-        <?php endif;?>
-        <?php if($elcontrato->awards):?>
-        <li><a href="#" id="btn-award-nav" class="nav_stage <?php echo !$elcontrato->contracts ? 'current' : '';?>" data-title="Adjudicación">
-          <?php echo file_get_contents("img/nav_adjudicacion.svg"); ?></a> 
-          <ul id="nav_award">
-            <?php $count_nav = 0;
-              foreach($elcontrato->awards as $award):?>
-            <?php 
-                $count_nav++;
-                $time_award = strtotime($award->date);
-                $time_award = date('d/m/Y',$time_award);?>
-            <li><a id="btn-award-<?php echo $count_nav;?>" href="#" data-title="<?php echo $time_award;?>" class="t_right"></a></li>
-            <?php endforeach;?>
-          </ul>
-        </li>
-        <?php endif;?>
-        <?php if($elcontrato->planning):?>
-        <li><a href="#" id="btn-tender" class="nav_stage <?php echo (!$elcontrato->contracts || !$elcontrato->awards) ? 'current' : '';?>" data-title="Licitación"><?php echo file_get_contents("img/nav_licitacion.svg"); ?></a></li>
-        <?php endif;?>
-        <?php if($elcontrato->tender):?>
-        <li><a href="#" id="btn-planning"class="nav_stage" data-title="Planeación"><?php echo file_get_contents("img/nav_planeacion.svg"); ?></a></li>
-        <?php endif;?>
-      </ul>
-    </nav>
+    <!-- nav-->
+    @include('frontend.contracts.includes.nav_ocs') 
   </div>  
 
   <div class="col-sm-9 info">     
