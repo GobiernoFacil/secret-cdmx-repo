@@ -19,4 +19,12 @@ class Contract extends Model
   public function plannings(){
     return $this->hasManyThrough('App\Models\Planning', 'App\Models\Release');
   }
+
+  public function tenders(){
+    return $this->hasManyThrough('App\Models\Tender', 'App\Models\Release');
+  }
+
+  public function awards(){
+    return $this->hasManyThrough('App\Models\Award', 'App\Models\Release');
+  }
 }

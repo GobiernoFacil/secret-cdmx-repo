@@ -27,7 +27,53 @@ class Search extends Controller
     if($query){
       $contracts = Contract::where('nomdependencia', 'like', '%' . $query.'%')
       ->orWhere('ejercicio', 'like', '%' . $query . '%')
-      //->orWhere
+      ->orWhere('ocdsid', 'like', '%' . $query . '%')
+      // SEARCH ON PUBLISHER
+      ->orWhere(function($q) use($query){
+        $q->whereHas('publisher', function($q) use($query){
+          $q->where('name', 'like', '%' . $query . '%');
+        });
+      })
+
+      // SEARCH ON PLANNINGS
+      ->orWhere(function($q) use($query){
+        $q->whereHas('plannings', function($q) use($query){
+          $q->where('project', 'like', '%' . $query . '%');
+        });
+      })
+
+      // SEARCH BUYER
+      ->orWhere(function($q) use($query){
+        $q->whereHas('releases', function($q) use($query){
+          $q->whereHas('buyer', function($q) use($query){
+            $q->where('name', 'like', '%' . $query . '%');
+          });
+        });
+      })
+
+      // SEARCH ON TENDERS
+      ->orWhere(function($q) use($query){
+        $q->whereHas('tenders', function($q) use($query){
+          $q->where('description', 'like', '%' . $query . '%');
+        })
+        ->orWhereHas('tenders', function($q) use($query){
+          $q->where('title', 'like', '%' . $query . '%');
+        })
+        ->orWhereHas('tenders', function($q) use($query){
+          $q->where('status', 'like', '%' . $query . '%');
+        });
+      })
+
+      // SEARCH ON AWARDS
+      ->orWhere(function($q) use($query){
+        $q->whereHas('awards', function($q) use($query){
+          $q->where('description', 'like', '%' . $query . '%');
+        })
+        ->orWhereHas('awards', function($q) use($query){
+          $q->where('title', 'like', '%' . $query . '%');
+        });
+      })
+
       ->get();
     }
     else{
