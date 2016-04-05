@@ -1,4 +1,4 @@
-<div id="awards" class="container_info hide">
+<div id="awards" class="container_info {{$elcontrato->singlecontracts->count() ? 'hide' : ''}}">
 	<?php $count = 0;?>
 <?php foreach($elcontrato->awards as $award):?>
           <div id="award-<?php echo $award->id;?>" class="sub_container {{$count > 0 ? 'hide' : ''}}">

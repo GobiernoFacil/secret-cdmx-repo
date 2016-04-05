@@ -30,7 +30,7 @@
 	  	@endif
 	  	
 	  	@if($elcontrato->tender)
-	  	<li><a href="#" data-id="tender" class="nav_stage {{ (!$elcontrato->singlecontracts || !$elcontrato->awards) ? 'current' : ''}}" data-title="Licitación"><?php echo file_get_contents("img/nav_licitacion.svg"); ?></a></li>
+	  	<li {!! ($elcontrato->singlecontracts->count() || $elcontrato->awards->count()) ? '' : "class='active'"!!}><a href="#" data-id="tender" class="nav_stage {{ ($elcontrato->singlecontracts->count() || $elcontrato->awards->count()) ? '' : 'current'}}" data-title="Licitación"><?php echo file_get_contents("img/nav_licitacion.svg"); ?></a></li>
 	  	@endif
 	  	@if($elcontrato->planning)
 	  	<li><a href="#" data-id="planning"class="nav_stage" data-title="Planeación"><?php echo file_get_contents("img/nav_planeacion.svg"); ?></a></li>

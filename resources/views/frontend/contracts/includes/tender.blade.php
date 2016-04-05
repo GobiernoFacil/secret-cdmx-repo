@@ -1,4 +1,4 @@
-        <div id="tender" class="container_info hide">
+        <div id="tender" class="container_info {{$elcontrato->awards->count() ? 'hide' : ''}}">
           <div class="row divider">
             <div class="col-sm-12">
               <p class="title_section">Licitación</p>
@@ -57,7 +57,7 @@
           <div class="row divider">
             <div class="col-sm-4">
               <p class="title_section">COMPRADOR</p>
-              <p><a href="/dependencia.php"><?php echo $elcontrato->buyer->name;?></a></p>
+              <p><a href="/dependencia.php"><?php // echo $elcontrato->buyer->name;?></a></p>
             </div>
                                   
 
