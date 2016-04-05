@@ -1641,7 +1641,7 @@ div.forthewin {
 
 /* =Home2 
 -------------------------------------------------------------- */
-.home2 nav#menu, .dependencia nav#menu {
+.home2 nav#menu, .dependencia nav#menu, .proveedor nav#menu {
   position: relative; }
 
 .viz_home {
@@ -1746,14 +1746,14 @@ div.forthewin {
   margin: 50px 0 0;
   padding: 35px; }
 
-.dependencia .row .col-sm-12:last-of-type {
+.dependencia .row .col-sm-12:last-of-type, .proveedor .row .col-sm-12:last-of-type {
   margin-bottom: 120px; }
 
-.dependencia ul {
+.dependencia ul, .proveedor ul {
   margin: 0; }
-.dependencia .list {
+.dependencia .list, .proveedor .list {
   margin: 0; }
-  .dependencia .list li {
+  .dependencia .list li, .proveedor .list li {
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
@@ -1761,24 +1761,24 @@ div.forthewin {
     margin-bottom: 0;
     padding-top: 23px;
     padding-bottom: 23px; }
-    .dependencia .list li a {
+    .dependencia .list li a, .proveedor .list li a {
       color: #eb008b; }
-      .dependencia .list li a:hover {
+      .dependencia .list li a:hover, .proveedor .list li a:hover {
         border-bottom: 1px dotted #eb008b; }
-.dependencia h1 {
+.dependencia h1, .proveedor h1 {
   font: 500 36px 'Geomanist', Helvetica, Arial, sans-serif; }
-  .dependencia h1 a {
+  .dependencia h1 a, .proveedor h1 a {
     color: #263333; }
-    .dependencia h1 a:hover {
+    .dependencia h1 a:hover, .proveedor h1 a:hover {
       color: #eb008b;
       border-bottom: 1px dotted #eb008b; }
-.dependencia h2 {
+.dependencia h2, .proveedor h2 {
   font-size: 29px; }
-.dependencia h3 {
+.dependencia h3, .proveedor h3 {
   color: black;
   font: 500 16px 'Geomanist', Helvetica, Arial, sans-serif;
   margin-bottom: 15px; }
-.dependencia .divider {
+.dependencia .divider, .proveedor .divider {
   border-bottom: 1px solid #ccc;
   margin: 0 0 25px;
   padding: 0 0 25px; }
