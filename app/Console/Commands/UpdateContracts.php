@@ -276,7 +276,6 @@ class UpdateContracts extends Command
     //
     //
     private function saveAwards($release, $data){
-      $this->info("yooooo");
       if(count($data->awards)){
         foreach($data->awards as $aw){
           $award = Award::firstOrCreate([
@@ -293,6 +292,7 @@ class UpdateContracts extends Command
 
           $award->update();
           $this->saveItems($award, $aw);
+          $this->saveSuppliers($award, $aw);
         }
       }
       else{
@@ -308,7 +308,7 @@ class UpdateContracts extends Command
       if(count($data->suppliers)){
         foreach($data->suppliers as $sup){
           $supplier = Supplier::firstOrCreate([
-            "award_id" => $data->id,
+            "award_id" => $award->id,//$data->id,
             "rfc"      => $sup->identifier->id
           ]);
 

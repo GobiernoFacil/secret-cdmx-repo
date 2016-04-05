@@ -32,4 +32,8 @@ class Release extends Model
   public function awards(){
     return $this->hasMany('App\Models\Award');
   }
+
+  public function suppliers(){
+    return $this->hasManyThrough('App\Models\Supplier', 'App\Models\Award');
+  }
 }
