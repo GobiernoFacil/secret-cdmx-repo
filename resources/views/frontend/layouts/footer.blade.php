@@ -57,7 +57,9 @@
 @if ($body_class == 'contract single')
 <script data-main="/js/apps/contrato-landing/main" src="/js/bower_components/requirejs/require.js"></script>
 @endif
-
+@if ($body_class == 'proveedor')
+<script data-main="/js/apps/dependencia/main" src="/js/bower_components/requirejs/require.js"></script>
+@endif
 <script src="/js/main.js"></script>
 
 <script>
