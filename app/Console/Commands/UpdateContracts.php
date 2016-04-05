@@ -202,7 +202,7 @@ class UpdateContracts extends Command
     private function saveTenderers($tender, $data){
       if(count($data->tenderers)){
         foreach($data->tenderers as $tn){
-          $tenderer = Tenderer::firstOrCreate([
+          $tenderer = $tender->tenderers()->firstOrCreate([
             "rfc" => $tn->identifier->id
           ]);
 

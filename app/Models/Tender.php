@@ -19,7 +19,7 @@ class Tender extends Model
   }
 
   public function tenderers(){
-    return $this->hasMany('App\Models\Tenderer');
+    return $this->belongsToMany('App\Models\Tenderer');
   }
 
   public function contracts(){
