@@ -118,10 +118,10 @@
             <div class="col-sm-4">
               <p class="title_section">LICITADORES que aplicaron</p>
               <h2 class="amount"><?php echo $elcontrato->tender->number_of_tenderers;?></h2>
-              @if (!empty($elcontrato->tender->tenderers))
+              @if ($elcontrato->tender->tenderers->count())
               <ol>
-                <?php foreach ($elcontrato->tender->tenderers as $tenderer):?>
-                <li><a href="#"><?php echo $tenderer->name;?></a> - <?php echo $tenderer->address->region;?></li>
+                <?php foreach ($elcontrato->tender->tenderers as $tendererers):?>
+                <li><a href="#"><?php echo $tendererers->name;?></a> - <?php echo $tendererers->region;?></li>
                 <?php endforeach;?> 
               </ol>
               @endif
@@ -132,8 +132,9 @@
               @if (!empty($elcontrato->awards))
               <ol>
                 <?php foreach ($elcontrato->awards as $award):?>
-                
-                <li><a href="#"><?php echo $award->supplier;?></a></li>
+                <?php foreach ($award->suppliers as $supplier):?>
+                <li><a href="#"><?php echo $supplier->name;?></a></li>
+                <?php endforeach;?> 
                 <?php endforeach;?> 
               </ol>
               @endif

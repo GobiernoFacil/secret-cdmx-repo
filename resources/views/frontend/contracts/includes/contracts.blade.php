@@ -18,7 +18,7 @@
             <div class="col-sm-6">
               <p class="title_section">PROVEEDOR</p>
               <?php foreach($elcontrato->awards as $award):?>
-                <?php if ($contract->awardID == $award->id):?>
+                <?php if ($contract->award_id == $award->local_id):?>
                   <p><a href=""><?php echo $award->suppliers[0]->name;?></a></p>
                 <?php endif;?>
               <?php endforeach;?>
