@@ -21,7 +21,6 @@ class Contracts extends Controller
 		$data['og_image']	 = "img/og/contrato-cdmx.png";
 		$data['body_class']  = 'contract';
 		
-		//// lista de contratos aún sin implementar en el view
 		$data['contracts']  = $contracts;
 		
 		return view("frontend.contracts.contracts_list")->with($data);
