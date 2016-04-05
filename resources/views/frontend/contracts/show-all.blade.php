@@ -18,6 +18,7 @@
     tender amount: {{$r->tender->amount}}<br>
     buyer name: {{$r->buyer ? $r->buyer->name : "nope"}}<br>
     awards : {{$r->awards ? $r->awards->count() : "nope"}}<br>
+    tenderers : {{$r->tender->tenderers()->count()}}<br>
     @if($r->awards->count())
     <ul>
       @foreach($r->awards as $item)
