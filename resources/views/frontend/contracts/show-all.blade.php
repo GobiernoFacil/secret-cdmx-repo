@@ -31,7 +31,7 @@
     @if($r->singlecontracts->count())
     <ul>
       @foreach($r->singlecontracts as $item)
-      <li>{{$item->title}}</li>
+      <li>{{$item->title}} :::: {{$item->release->awards->where('local_id', $item->award_id)->first()->title}}</li>
       @endforeach
     </ul>
     @endif
