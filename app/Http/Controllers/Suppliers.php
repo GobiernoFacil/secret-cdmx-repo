@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\Contract;
+use App\Models\Tenderer;
+use App\Models\Tender;
 
 class Suppliers extends Controller
 {
@@ -21,14 +23,16 @@ class Suppliers extends Controller
 	// Supplier 
 	//
 	public function show($id){
+		$supplier 			 = Tenderer::where("id", $id)->get()->first();
 		$contracts 			 = Contract::all();
 		$data                = [];
-		$data['title']       = 'Proveedor';
+		$data['title']       = $supplier->name;
 		$data['description'] = 'Proveedor';
 		$data['og_image']	 = "img/og/contrato-cdmx.png";
 		$data['body_class']  = 'proveedor';
 		
 		$data['contracts']  = $contracts;
+		$data['supplier']   = $supplier;
 		
 		return view("frontend.supplier")->with($data);
 	}
