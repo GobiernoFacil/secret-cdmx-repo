@@ -18,6 +18,8 @@ Route::get('home2', "Frontend@indexv2");
 
 Route::get('v2', "Contracts@index");
 Route::get('dependencias', "Offices@index");
+/// suppliers
+Route::get('proveedor/{id}', "Suppliers@show");
 
 // esta ruta actualizaba los datos de contractos. Ahora debe hacerse desde
 // la terminal. En el directorio raíz:
