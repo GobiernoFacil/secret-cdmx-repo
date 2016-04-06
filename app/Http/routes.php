@@ -30,6 +30,7 @@ Route::get('test2/{ocid}', "ContractGetter@getMetaData");
 Route::get('test3/{from}/{to}', "ContractGetter@getProviders");
 Route::get('test4/{from?}', "ContractGetter@saveProviders");
 Route::get('test5', "ContractGetter@updateContracts");
+Route::get('test6/{ocid}', "ContractGetter@getJSON");
 Route::get('contratos', "Contracts@index");
 
 // se esconde mientras va en vivo Route::get('contratos', "Contracts@index"); 
@@ -59,5 +60,6 @@ Route::get('api/contratos/todos', 'ApiCDMX@listAll');
 
 Route::group(['middleware' => ['web']], function () {
   Route::get('contratos/busqueda/{page?}', 'Search@index');
+  Route::get('descargar/contrato/{ocid}', "ContractGetter@getJSON");
   //Route::get('_contratos', 'Contracts@showAll');
 });

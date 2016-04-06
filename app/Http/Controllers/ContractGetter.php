@@ -310,6 +310,38 @@ class ContractGetter extends Controller
     echo "</pre>";
   }
 
+  public function getJSON($ocid){
+    // [1] Validate ocid & redirect if not valid
+    $r = preg_match('/^[\w-]+$/', $ocid);
+    if(!$r) die("O_______O");
+
+    // [2] make the call to the API
+    $url  = 'http://187.141.34.209:9009/ocpcdmx/contratos';
+    $data = ['dependencia' => '901', 'contrato' => $ocid];
+
+    // [2.1] the CURL stuff
+    $ch   = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch,CURLOPT_POSTFIELDS, http_build_query($data));
+    $result = curl_exec($ch);
+    //$con    = json_decode($result);
+
+    //echo "<pre>";
+    //var_dump($con);
+    //echo "</pre>";
+    $file = $ocid . ".json";
+    //file_put_contents($file, $result);
+    //return response()->download($file);
+    header('Content-Disposition: attachment; filename="' . $file . '"');
+    header('Content-Type: application/json');
+    header('Content-Length: ' . strlen($result));
+    header('Connection: close');
+
+    echo $result;
+  }
+
   public function updateContracts(){
     $contracts = Contract::all();
 

@@ -8,6 +8,7 @@
 <ul>
 @foreach($contracts as $contract)
   <li>
+    <a href="{{url('descargar/contrato/' . $contract->ocdsid)}}">Decargar contrato</a><br>
     {{$contract->ocdsid}}<br>
     @if($contract->releases->count())
     <?php $r = $contract->releases->last(); ?>
