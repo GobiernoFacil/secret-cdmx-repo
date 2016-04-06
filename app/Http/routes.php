@@ -44,7 +44,7 @@ Route::get('_contratos', 'Contracts@showAll');
 . T H E   A P I   M I D D L E W A R E .
 .......................................
 */
-Route::get('api/contratos/todos', 'ApiCDMX@listAll');
+Route::get('api/contratos/todos/{page}', 'ApiCDMX@listAll');
 
 
 /*
